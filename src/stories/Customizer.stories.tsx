@@ -4,15 +4,17 @@ import { Customizer } from '../index';
 
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
-import { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
-
-import porsche from '../../static/models/porsche/scene.gltf';
+import shoe from '../../static/models/shoe/shoe-draco.glb';
 
 export default {
   title: 'Customizer',
   component: Customizer,
 } as ComponentMeta<FC>;
 
-const config = { url: porsche };
+const config = { url: shoe };
 
-export const Scene: ComponentStory<FC> = () => <Customizer url={config.url} />;
+export const ColorSustomizer: ComponentStory<FC> = () => (
+  <div style={{ width: '500px', height: '500px' }}>
+    <Customizer url={config.url} />
+  </div>
+);

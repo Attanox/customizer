@@ -1,18 +1,47 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Suspense } from 'react';
-import { Canvas, useLoader } from '@react-three/fiber';
+import { Canvas } from '@react-three/fiber';
 import { useGLTF } from '@react-three/drei';
 
-export const Customizer = (props: { url: string }) => {
-  const { scene } = useGLTF(props.url);
+import type { Mesh } from 'three';
 
-  console.log({ scene });
+import './Customizer.css';
+
+type LocalProps = { url: string };
+
+const Model = (props: LocalProps) => {
+  const modelRef = useRef();
+
+  const { nodes, materials, scene } = useGLTF(props.url);
+
+  console.log({ nodes, materials, scene });
+
+  const meshNodes: { [key: string]: Mesh } = {};
+
+  Object.keys(nodes).forEach((key) => {
+    if (nodes[key].type === 'Mesh') {
+      meshNodes[key] = nodes[key] as Mesh;
+    }
+  });
+
+  console.log({ meshNodes });
 
   return (
-    <Suspense fallback="loading">
-      <Canvas>
-        <primitive object={scene} />
-      </Canvas>
-    </Suspense>
+    <group ref={modelRef} dispose={null}>
+      {Object.keys(meshNodes).map((key) => {
+        return <mesh material={meshNodes[key].material} geometry={meshNodes[key].geometry} />;
+      })}
+    </group>
+  );
+};
+
+export const Customizer = (props: LocalProps) => {
+  return (
+    <Canvas>
+      <ambientLight intensity={0.3} />
+      <Suspense fallback={null}>
+        <Model url={props.url} />
+      </Suspense>
+    </Canvas>
   );
 };
