@@ -13,8 +13,8 @@ export default {
 
 const config = { url: shoe };
 
-export const ColorSustomizer: ComponentStory<FC> = () => (
-  <div style={{ width: '500px', height: '500px' }}>
+export const ColorCustomizer: ComponentStory<FC> = () => (
+  <div style={{ width: '100%', height: '500px' }}>
     <Customizer url={config.url} />
   </div>
 );

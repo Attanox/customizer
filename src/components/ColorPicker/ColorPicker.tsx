@@ -1,10 +1,17 @@
 import React from 'react';
+import { HexColorPicker } from 'react-colorful';
 
-export const ColorPicker = (props: { current: string | null }) => {
+import './ColorPicker.css';
+
+type LocalProps = { current: string | null; changeColor: (c: string) => void; currentColor: string };
+
+export const ColorPicker = (props: LocalProps) => {
+  const { changeColor, currentColor, current } = props;
+
   return (
-    <div className="color-picker">
-      {/* <HexColorPicker className="picker" color={snap.items[snap.current]} onChange={(color) => (state.items[snap.current] = color)} /> */}
-      <h1>{props.current}</h1>
+    <div className="color-picker-wrapper">
+      <HexColorPicker className="color-picker" color={currentColor} onChange={changeColor} />
+      <h1>{current}</h1>
     </div>
   );
 };

@@ -1,17 +1,20 @@
 import React, { useState } from 'react';
 import { Suspense } from 'react';
-import { Canvas, useFrame } from '@react-three/fiber';
-import { useGLTF } from '@react-three/drei';
+import { Canvas } from '@react-three/fiber';
+import { ContactShadows, Environment, OrbitControls } from '@react-three/drei';
 
-import type { Group, Mesh } from 'three';
+import defaultEnvironment from '../../../static/environments/royal_esplanade_1k.hdr';
 
-import './Customizer.css';
 import { Model } from '../Model/Model';
 import { ColorPicker } from '../ColorPicker/ColorPicker';
 
-type LocalProps = { url: string };
+import './Customizer.css';
 
-const INITIAL_STATE = {
+import type { GlobalState } from 'src/types';
+
+type LocalProps = { url: string; environment?: string };
+
+const INITIAL_STATE: GlobalState = {
   current: '',
   items: {
     laces: '#ffffff',
@@ -32,14 +35,21 @@ export const Customizer = (props: LocalProps) => {
     setState({ ...state, current });
   };
 
+  const changeColor = (color: string) => {
+    setState({ ...state, items: { ...state.items, [state.current]: color } });
+  };
+
   return (
     <>
-      <ColorPicker current={state.current} />
+      <ColorPicker changeColor={changeColor} current={state.current} currentColor={state.items[state.current]} />
       <Canvas>
         <ambientLight intensity={0.3} />
         <Suspense fallback={null}>
-          <Model url={props.url} setCurrent={setCurrent} />
+          <Model url={props.url} setCurrent={setCurrent} state={state} />
+          <Environment files={props.environment || defaultEnvironment} />
+          <ContactShadows rotation-x={Math.PI / 2} position={[0, -0.8, 0]} opacity={0.25} width={10} height={10} blur={2} far={1} />
         </Suspense>
+        <OrbitControls minPolarAngle={Math.PI / 2} maxPolarAngle={Math.PI / 2} enableZoom={false} enablePan={false} />
       </Canvas>
     </>
   );

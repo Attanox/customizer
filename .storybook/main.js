@@ -10,6 +10,11 @@ module.exports = {
       use: ['file-loader'],
       include: path.resolve(__dirname, '../'),
     });
+    config.module.rules.push({
+      test: /\.(hdr|hdri)$/,
+      use: ['file-loader'],
+      include: path.resolve(__dirname, '../'),
+    });
     return config;
   },
   staticDirs: ['../static'],
