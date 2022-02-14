@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 
-import { GlobalState } from 'src/types';
+import { TGlobalState } from 'src/types';
 
-export const useColorCursor = (state: GlobalState) => {
+export const useColorCursor = (state: TGlobalState) => {
   const [hovered, setHovered] = useState<string | null>(null);
 
   useEffect(() => {

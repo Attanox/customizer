@@ -10,26 +10,26 @@ import { ColorPicker } from '../ColorPicker/ColorPicker';
 
 import './Customizer.css';
 
-import type { GlobalState } from 'src/types';
+import type { TGenericObject, TGlobalState, TOnEachFrame } from 'src/types';
 
-type LocalProps = { url: string; environment?: string };
+type LocalProps = { url: string; environment?: string; onEachFrame?: TOnEachFrame; initialItemColors: TGenericObject };
 
-const INITIAL_STATE: GlobalState = {
-  current: '',
-  items: {
-    laces: '#ffffff',
-    mesh: '#ffffff',
-    caps: '#ffffff',
-    inner: '#ffffff',
-    sole: '#ffffff',
-    stripes: '#ffffff',
-    band: '#ffffff',
-    patch: '#ffffff',
-  },
+const createInitialState = (initItemColors: TGenericObject = {}) => {
+  const INITIAL_STATE: TGlobalState = {
+    current: '',
+    items: {},
+  };
+
+  return {
+    ...INITIAL_STATE,
+    items: {
+      ...initItemColors,
+    },
+  };
 };
 
 export const Customizer = (props: LocalProps) => {
-  const [state, setState] = useState(INITIAL_STATE);
+  const [state, setState] = useState(createInitialState(props.initialItemColors));
 
   const setCurrent = (current: string) => {
     setState({ ...state, current });
@@ -45,7 +45,7 @@ export const Customizer = (props: LocalProps) => {
       <Canvas>
         <ambientLight intensity={0.3} />
         <Suspense fallback={null}>
-          <Model url={props.url} setCurrent={setCurrent} state={state} />
+          <Model url={props.url} onEachFrame={props.onEachFrame} setCurrent={setCurrent} state={state} />
           <Environment files={props.environment || defaultEnvironment} />
           <ContactShadows rotation-x={Math.PI / 2} position={[0, -0.8, 0]} opacity={0.25} width={10} height={10} blur={2} far={1} />
         </Suspense>

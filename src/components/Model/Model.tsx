@@ -5,32 +5,18 @@ import { useGLTF } from '@react-three/drei';
 import type { Group, Mesh, MeshStandardMaterial } from 'three';
 
 import { useColorCursor } from '../../hooks';
-import { GlobalState } from 'src/types';
+import { TGlobalState, TOnEachFrame } from 'src/types';
 
-type LocalProps = { url: string; setCurrent: (c: string) => void; state: GlobalState };
+type LocalProps = { url: string; setCurrent: (c: string) => void; state: TGlobalState; onEachFrame?: TOnEachFrame };
 
 export const Model = (props: LocalProps) => {
-  const { state } = props;
+  const { state, onEachFrame } = props;
 
   const modelRef = useRef<Group>();
   const { setHovered } = useColorCursor(state);
-
   const { nodes } = useGLTF(props.url);
-
   // Animate model
-  useFrame((state) => {
-    const t = state.clock.getElapsedTime();
-    if (modelRef.current) {
-      modelRef.current.rotation.z = -0.2 - (1 + Math.sin(t / 1.5)) / 20;
-      modelRef.current.rotation.x = Math.cos(t / 4) / 8;
-      modelRef.current.rotation.y = Math.sin(t / 4) / 8;
-      modelRef.current.position.y = (1 + Math.sin(t / 1.5)) / 10;
-    }
-  });
-
-  useThree(({ camera }) => {
-    camera.position.setZ(2);
-  });
+  useFrame((state) => onEachFrame && onEachFrame(state, modelRef));
 
   const meshNodes: { [key: string]: Mesh } = {};
 

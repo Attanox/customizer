@@ -11,7 +11,7 @@ export const ColorPicker = (props: LocalProps) => {
   return (
     <div className="color-picker-wrapper">
       <HexColorPicker className="color-picker" color={currentColor} onChange={changeColor} />
-      <h1>{current}</h1>
+      <h1>{current || ''}</h1>
     </div>
   );
 };
