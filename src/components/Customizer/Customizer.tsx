@@ -10,9 +10,13 @@ import { ColorPicker } from '../ColorPicker/ColorPicker';
 
 import './Customizer.css';
 
-import type { TGenericObject, TGlobalState, TOnEachFrame } from 'src/types';
+import type { TGenericObject, TGlobalState } from 'src/types';
 
-type LocalProps = { url: string; environment?: string; onEachFrame?: TOnEachFrame; initialItemColors: TGenericObject };
+interface LocalProps {
+  url: string;
+  environment?: string;
+  initialItemColors: TGenericObject;
+}
 
 const createInitialState = (initItemColors: TGenericObject = {}) => {
   const INITIAL_STATE: TGlobalState = {
@@ -45,11 +49,11 @@ export const Customizer = (props: LocalProps) => {
       <Canvas>
         <ambientLight intensity={0.3} />
         <Suspense fallback={null}>
-          <Model url={props.url} onEachFrame={props.onEachFrame} setCurrent={setCurrent} state={state} />
+          <Model url={props.url} setCurrent={setCurrent} state={state} />
           <Environment files={props.environment || defaultEnvironment} />
           <ContactShadows rotation-x={Math.PI / 2} position={[0, -0.8, 0]} opacity={0.25} width={10} height={10} blur={2} far={1} />
         </Suspense>
-        <OrbitControls minPolarAngle={Math.PI / 2} maxPolarAngle={Math.PI / 2} enableZoom={false} enablePan={false} />
+        <OrbitControls minPolarAngle={Math.PI / 2} maxPolarAngle={Math.PI / 2} enableRotate={true} enableZoom={true} enablePan={true} />
       </Canvas>
     </>
   );

@@ -13,17 +13,8 @@ export default {
   component: Customizer,
 } as ComponentMeta<FC>;
 
-const config: { url: string; onEachFrame: TOnEachFrame; items: TGenericObject } = {
+const config: { url: string; items: TGenericObject } = {
   url: shoe,
-  onEachFrame: (state, modelRef) => {
-    const t = state.clock.getElapsedTime();
-    if (modelRef.current) {
-      modelRef.current.rotation.z = -0.2 - (1 + Math.sin(t / 1.5)) / 20;
-      modelRef.current.rotation.x = Math.cos(t / 4) / 8;
-      modelRef.current.rotation.y = Math.sin(t / 4) / 8;
-      modelRef.current.position.y = (1 + Math.sin(t / 1.5)) / 10;
-    }
-  },
   items: {
     laces: '#ffffff',
     mesh: '#ffffff',
