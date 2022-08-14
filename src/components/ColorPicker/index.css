@@ -12,12 +12,11 @@
 .color-picker-wrapper {
   position: absolute;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: flex-start;
   top: calc(var(--color-picker-height) / 2);
   left: calc(var(--color-picker-width) / 2);
-  width: var(--color-picker-width);
-  height: var(--color-picker-height);
 }
 
 .color-picker-wrapper > .color-picker {
@@ -29,13 +28,5 @@
   font-size: 14px;
   font-weight: 500;
   margin-top: 8px;
-  position: absolute;
-  top: calc(var(--color-picker-height) / 2);
-  left: calc(var(--color-picker-height) + 20px);
-  transform: translateY(-50%);
-  font-family: 'Raleway', sans-serif;
   color: #333333;
-  -webkit-transition: all 0.4s ease 0s;
-  -o-transition: all 0.4s ease 0s;
-  transition: all 0.4s ease 0s;
 }

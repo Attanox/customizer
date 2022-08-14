@@ -1,7 +1,7 @@
 import React from 'react';
 import { HexColorPicker } from 'react-colorful';
 
-import './ColorPicker.css';
+import './index.css';
 
 type LocalProps = { current: string | null; changeColor: (c: string) => void; currentColor: string };
 

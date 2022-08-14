@@ -1,1 +1,1 @@
-export * from './components/Customizer'
+export * from './components/Customizer';
