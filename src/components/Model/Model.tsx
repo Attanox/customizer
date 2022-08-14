@@ -4,16 +4,17 @@ import { useGLTF } from '@react-three/drei';
 import type { Group, Mesh, MeshStandardMaterial } from 'three';
 
 import { useColorCursor } from '../../hooks';
-import { TGlobalState } from 'src/types';
+import { TGlobalState, TModelConfig } from 'src/types';
 
 interface LocalProps {
   url: string;
   setCurrent: (c: string) => void;
   state: TGlobalState;
+  config: TModelConfig;
 }
 
 export const Model = (props: LocalProps) => {
-  const { state } = props;
+  const { state, config } = props;
 
   const modelRef = useRef<Group>();
   const { setHovered } = useColorCursor(state);
@@ -45,7 +46,8 @@ export const Model = (props: LocalProps) => {
         e.stopPropagation();
         props.setCurrent(((e.object as Mesh).material as MeshStandardMaterial).name);
       }}
-      scale={3}
+      scale={config.scale || 1}
+      position={config.position || [0, 0, 0]}
     >
       {Object.keys(meshNodes).map((key) => {
         const partName = (meshNodes[key].material as MeshStandardMaterial).name;

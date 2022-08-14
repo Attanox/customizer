@@ -4,16 +4,16 @@ import { Customizer } from '../index';
 
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
-import shoe from '../../static/models/shoe/shoe-draco.glb';
+import shoe from '../../public/models/shoe/shoe-draco.glb';
 
-import type { TGenericObject, TOnEachFrame } from 'src/types';
+import type { TGenericObject, TModelConfig } from 'src/types';
 
 export default {
   title: 'Customizer',
   component: Customizer,
 } as ComponentMeta<FC>;
 
-const config: { url: string; items: TGenericObject } = {
+const config: { url: string; items: TGenericObject; model: TModelConfig } = {
   url: shoe,
   items: {
     laces: '#ffffff',
@@ -25,10 +25,14 @@ const config: { url: string; items: TGenericObject } = {
     band: '#ffffff',
     patch: '#ffffff',
   },
+  model: {
+    scale: 3,
+    position: [0, 1, 0],
+  },
 };
 
 export const ColorCustomizer: ComponentStory<FC> = () => (
   <div style={{ width: '100%', height: '500px' }}>
-    <Customizer url={config.url} initialItemColors={config.items} />
+    <Customizer url={config.url} initialItemColors={config.items} modelConfig={config.model} />
   </div>
 );

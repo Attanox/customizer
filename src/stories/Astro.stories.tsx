@@ -4,16 +4,16 @@ import { Customizer } from '../index';
 
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
-import rocket from '../../static/models/Astronaut.glb';
+import rocket from '../../static/models/astronaut/scene.glb';
 
-import type { TGenericObject, TOnEachFrame } from 'src/types';
+import type { TGenericObject, TModelConfig } from 'src/types';
 
 export default {
   title: 'Customizer',
   component: Customizer,
 } as ComponentMeta<FC>;
 
-const config: { url: string; items: TGenericObject } = {
+const config: { url: string; items: TGenericObject; model: TModelConfig } = {
   url: rocket,
   items: {
     laces: '#ffffff',
@@ -25,10 +25,14 @@ const config: { url: string; items: TGenericObject } = {
     band: '#ffffff',
     patch: '#ffffff',
   },
+  model: {
+    scale: 1.75,
+    position: [0, -2, 0],
+  },
 };
 
 export const AstroCustomizer: ComponentStory<FC> = () => (
   <div style={{ width: '100%', height: '500px' }}>
-    <Customizer url={config.url} initialItemColors={config.items} />
+    <Customizer url={config.url} initialItemColors={config.items} modelConfig={config.model} />
   </div>
 );

@@ -6,24 +6,15 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 
 import shoe from '../../static/models/shoe/shoe-draco.glb';
 
-import type { TGenericObject, TOnEachFrame } from 'src/types';
+import type { TGenericObject, TModelConfig } from 'src/types';
 
 export default {
   title: 'Customizer',
   component: Customizer,
 } as ComponentMeta<FC>;
 
-const config: { url: string; onEachFrame: TOnEachFrame; items: TGenericObject } = {
+const config: { url: string; items: TGenericObject; model: TModelConfig } = {
   url: shoe,
-  onEachFrame: (state, modelRef) => {
-    const t = state.clock.getElapsedTime();
-    if (modelRef.current) {
-      modelRef.current.rotation.z = -0.2 - (1 + Math.sin(t / 1.5)) / 20;
-      modelRef.current.rotation.x = Math.cos(t / 4) / 8;
-      modelRef.current.rotation.y = Math.sin(t / 4) / 8;
-      modelRef.current.position.y = (1 + Math.sin(t / 1.5)) / 10;
-    }
-  },
   items: {
     laces: '#ffffff',
     mesh: '#ffffff',
@@ -34,12 +25,16 @@ const config: { url: string; onEachFrame: TOnEachFrame; items: TGenericObject } 
     band: '#ffffff',
     patch: '#ffffff',
   },
+  model: {
+    scale: 3,
+    position: [0, 1, 0],
+  },
 };
 
 export const EcommerceCustomizer: ComponentStory<FC> = () => (
   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
     <div style={{ width: '100%', height: '500px' }}>
-      <Customizer url={config.url} initialItemColors={config.items} />
+      <Customizer url={config.url} initialItemColors={config.items} modelConfig={config.model} />
     </div>
     <div style={{ width: '2rem' }} />
     <div style={{ width: '100%', height: '500px' }}>

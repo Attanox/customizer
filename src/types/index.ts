@@ -10,4 +10,9 @@ export type TGlobalState = {
 
 type TModelRef = React.MutableRefObject<Group | undefined>;
 
+export type TModelConfig = {
+  scale?: number;
+  position?: [number, number, number];
+};
+
 export type TOnEachFrame = (state: RootState, modelRef: TModelRef) => void;
