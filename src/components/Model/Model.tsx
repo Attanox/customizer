@@ -19,6 +19,7 @@ export const Model = (props: LocalProps) => {
   const modelRef = useRef<Group>();
   const { setHovered } = useColorCursor(state);
 
+  // @ts-ignore
   const { nodes } = useGLTF(props.url);
   const meshNodes: { [key: string]: Mesh } = {};
 

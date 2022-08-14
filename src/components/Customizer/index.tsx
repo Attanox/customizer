@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import { Suspense } from 'react';
 import { Canvas } from '@react-three/fiber';
-import { Environment, OrbitControls } from '@react-three/drei';
-
-import defaultEnvironment from '../../../static/environments/royal_esplanade_1k.hdr';
+import { OrbitControls } from '@react-three/drei';
 
 import { Model } from '../Model/Model';
 import { ColorPicker } from '../ColorPicker/ColorPicker';
@@ -53,7 +51,6 @@ export const Customizer = (props: LocalProps) => {
         <ambientLight intensity={0.3} />
         <Suspense fallback={null}>
           <Model url={props.url} setCurrent={setCurrent} state={state} config={props.modelConfig || {}} />
-          <Environment files={props.environment || defaultEnvironment} />
         </Suspense>
         <OrbitControls minPolarAngle={Math.PI / 2} maxPolarAngle={Math.PI / 2} enableRotate={true} enableZoom={true} enablePan={false} />
       </Canvas>

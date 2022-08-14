@@ -4,6 +4,7 @@ import { Customizer } from '../index';
 
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
+// @ts-ignore
 import shoe from '../../static/models/shoe/shoe-draco.glb';
 
 import type { TGenericObject, TModelConfig } from 'src/types';

@@ -4,6 +4,7 @@ import { Customizer } from '../index';
 
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
+// @ts-ignore
 import astronaut from '../../static/models/astronaut/scene.glb';
 
 import type { TGenericObject, TModelConfig } from 'src/types';
