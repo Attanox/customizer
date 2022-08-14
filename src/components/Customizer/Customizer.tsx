@@ -17,6 +17,7 @@ interface LocalProps {
   environment?: string;
   initialItemColors: TGenericObject;
   modelConfig?: TModelConfig;
+  onChange?: (current: string, color: string) => void;
 }
 
 const createInitialState = (initItemColors: TGenericObject = {}) => {
@@ -42,6 +43,7 @@ export const Customizer = (props: LocalProps) => {
 
   const changeColor = (color: string) => {
     setState({ ...state, items: { ...state.items, [state.current]: color } });
+    props.onChange && state.current && props.onChange(state.current, color);
   };
 
   return (

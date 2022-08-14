@@ -17,5 +17,5 @@ module.exports = {
     });
     return config;
   },
-  staticDirs: ['../public', '../static'],
+  staticDirs: ['../static'],
 };

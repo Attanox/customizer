@@ -11,6 +11,9 @@
 
 .color-picker-wrapper {
   position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
   top: calc(var(--color-picker-height) / 2);
   left: calc(var(--color-picker-width) / 2);
   width: var(--color-picker-width);
@@ -23,9 +26,9 @@
 }
 
 .color-picker-wrapper > h1 {
-  font-size: 34px;
+  font-size: 14px;
   font-weight: 500;
-  text-transform: uppercase;
+  margin-top: 8px;
   position: absolute;
   top: calc(var(--color-picker-height) / 2);
   left: calc(var(--color-picker-height) + 20px);

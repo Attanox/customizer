@@ -9,3 +9,6 @@ If to be used, one has to compress `GLTF` file into `GLB` via:
 ```
 npx gltf-pipeline -i <model>.gltf -o <model>.glb --draco.compressionLevel=10
 ```
+
+3D MODEL CREDITS:  
+"3 December 2021 Day 18 Astronaut" (https://skfb.ly/osTA8) by Pavluha is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
